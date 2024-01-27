@@ -4,7 +4,7 @@
 /.idea
 /src/.vs
 /src/.idea
-TemplateSolution.sln.DotSettings.user
+team-2-hackathon2024.sln.DotSettings.user
 /Packages
 # Project files
 
@@ -21,18 +21,18 @@ TemplateSolution.sln.DotSettings.user
 #Site Files
 /BackUp
 /Customization
-/TemplateClient_TemplateVersionUnderscore/*
-!/TemplateClient_TemplateVersionUnderscore/App_Data/
-/TemplateClient_TemplateVersionUnderscore/App_Data/*
-!/TemplateClient_TemplateVersionUnderscore/App_Data/SnapshotConfigs/
-/TemplateClient_TemplateVersionUnderscore/App_Data/SnapshotConfigs/*
-!/TemplateClient_TemplateVersionUnderscore/Content/
-/TemplateClient_TemplateVersionUnderscore/Content/*
-!/TemplateClient_TemplateVersionUnderscore/Content/svg_icons/
-/TemplateClient_TemplateVersionUnderscore/Content/svg_icons/*
-!/TemplateClient_TemplateVersionUnderscore/Content/svg_icons/LS*
-!/TemplateClient_TemplateVersionUnderscore/Pages
-/TemplateClient_TemplateVersionUnderscore/Pages/*
-!/TemplateClient_TemplateVersionUnderscore/Pages/LS
+/CarbonAccounting_23_2/*
+!/CarbonAccounting_23_2/App_Data/
+/CarbonAccounting_23_2/App_Data/*
+!/CarbonAccounting_23_2/App_Data/SnapshotConfigs/
+/CarbonAccounting_23_2/App_Data/SnapshotConfigs/*
+!/CarbonAccounting_23_2/Content/
+/CarbonAccounting_23_2/Content/*
+!/CarbonAccounting_23_2/Content/svg_icons/
+/CarbonAccounting_23_2/Content/svg_icons/*
+!/CarbonAccounting_23_2/Content/svg_icons/LS*
+!/CarbonAccounting_23_2/Pages
+/CarbonAccounting_23_2/Pages/*
+!/CarbonAccounting_23_2/Pages/LS
 /Snapshots
 /TemporaryAspFiles

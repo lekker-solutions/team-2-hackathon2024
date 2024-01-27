@@ -1,5 +1,5 @@
 $path = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
-$name = "TemplateClient"
+$name = "CarbonAccounting"
 function InstallSite([string] $version){
     $versionString = $version.Replace(".", "_").Substring(0,4);
     $path = "$($path)\$($name)_$($versionString)";
@@ -11,4 +11,4 @@ function InstallSite([string] $version){
     Add-AcuSite -nv "$($name)_$($versionString)" -v $version -p $path
 }
 
-InstallSite("TemplateVersion")
+InstallSite("23.207.0025")
