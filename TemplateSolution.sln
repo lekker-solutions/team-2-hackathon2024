@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Info", "Info", "{1FC1097E-061D-468E-B22E-C4E20042FC95}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		src\acumatica.targets = src\acumatica.targets
+		initRepo.ps1 = initRepo.ps1
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{0F592473-904F-4774-ADB1-706060F6444E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LS.TemplateProject", "src\LS.TemplateProject\LS.TemplateProject.csproj", "{1569772E-72B8-489A-8617-A244D35C1B2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBA1AED0-EED9-45F3-9F43-A685DC383309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA1AED0-EED9-45F3-9F43-A685DC383309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA1AED0-EED9-45F3-9F43-A685DC383309}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA1AED0-EED9-45F3-9F43-A685DC383309}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{1569772E-72B8-489A-8617-A244D35C1B2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1569772E-72B8-489A-8617-A244D35C1B2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1569772E-72B8-489A-8617-A244D35C1B2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1569772E-72B8-489A-8617-A244D35C1B2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9ACCB828-C541-4337-BED0-5EF72C9C5298}
+	EndGlobalSection
+EndGlobal
