@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using LS.CarbonAccounting;
+using LS.CarbonAccountingModule.DAC;
 using PX.Data;
 using PX.Data.BQL.Fluent;
 

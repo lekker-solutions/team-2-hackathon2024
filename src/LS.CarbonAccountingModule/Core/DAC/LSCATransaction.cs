@@ -4,7 +4,7 @@ using PX.Data.BQL;
 using PX.Data.ReferentialIntegrity.Attributes;
 using PX.Objects.CS;
 
-namespace LS.CarbonAccounting
+namespace LS.CarbonAccountingModule.DAC
 {
     [Serializable]
     [PXCacheName("LSCATransaction")]

@@ -1,7 +1,7 @@
 ﻿using System;
 using PX.Data;
 
-namespace LS.CarbonAccounting
+namespace LS.CarbonAccountingModule.DAC
 {
     [Serializable]
     [PXCacheName("LSCASetup")]

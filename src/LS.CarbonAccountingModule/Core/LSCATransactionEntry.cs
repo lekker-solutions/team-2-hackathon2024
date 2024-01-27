@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using LS.CarbonAccounting;
+using LS.CarbonAccountingModule.DAC;
 using PX.Data;
 using PX.Data.BQL.Fluent;
 

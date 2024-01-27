@@ -2,7 +2,7 @@
 using PX.Data;
 using PX.Data.ReferentialIntegrity.Attributes;
 
-namespace LS.CarbonAccounting
+namespace LS.CarbonAccountingModule.DAC
 {
     [Serializable]
     [PXCacheName("LSCATransactionDetail")]
