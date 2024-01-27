@@ -4,10 +4,15 @@
   <col name="TransactionType" type="Char(1)" />
   <col name="ReferenceNumber" type="NVarChar(15)" />
   <col name="LineNbr" type="Int" />
+  <col name="InventoryID" type="Int" nullable="true" />
+  <col name="UOM" type="NVarChar(6)" nullable="true" />
   <col name="Qty" type="Decimal(25,6)" nullable="true" />
+  <col name="BaseQty" type="Decimal(25,6)" nullable="true" />
+  <col name="Rate" type="Decimal(9,6)" nullable="true" />
+  <col name="ExtCarbonEquivQty" type="Decimal(25,6)" nullable="true" />
   <col name="ReasonCode" type="NVarChar(15)" nullable="true" />
   <col name="TranDescr" type="NVarChar(125)" nullable="true" />
-  <index name="PK__LSCATran__25A469D0F527FA55" clustered="true" primary="true" unique="true">
+  <index name="PK__LSCATran__25A469D0B413A629" clustered="true" primary="true" unique="true">
     <col name="CompanyID" />
     <col name="TransactionType" />
     <col name="ReferenceNumber" />

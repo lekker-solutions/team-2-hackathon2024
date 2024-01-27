@@ -1,0 +1,3 @@
+﻿<Table TableName="InventoryItem">
+    <Column TableName="InventoryItem" ColumnName="UsrLSACCarbonTonEquivalent" ColumnType="decimal" AllowNull="True" DecimalPrecision="6" DecimalLength="25" IsNewColumn="True" IsUnicode="True" />
+</Table>

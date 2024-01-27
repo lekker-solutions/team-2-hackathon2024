@@ -1,8 +1,10 @@
 ﻿using System;
+using LS.CarbonAccountingModule.Descriptor;
 using PX.Data;
 using PX.Data.BQL;
 using PX.Data.ReferentialIntegrity.Attributes;
 using PX.Objects.CS;
+using PX.Objects.IN;
 
 namespace LS.CarbonAccountingModule.DAC
 {
@@ -19,7 +21,9 @@ namespace LS.CarbonAccountingModule.DAC
 
         #region TransactionType
 
-        [PXDBString(1, IsKey = true, IsFixed = true, InputMask = "")]
+        [PXDefault(CarbonTranType.Emission)]
+        [PXDBString(1, IsKey = true, IsFixed = true, IsUnicode = true, InputMask = "")]
+        [CarbonTranType]
         [PXUIField(DisplayName = "Transaction Type")]
         public virtual string TransactionType { get; set; }
 
@@ -31,8 +35,10 @@ namespace LS.CarbonAccountingModule.DAC
 
         #region ReferenceNumber
 
-        [AutoNumber(typeof(LSCASetup), typeof(tranDate))]
+        [AutoNumber(typeof(LSCASetup.transactionNumberingID), typeof(tranDate))]
         [PXDBString(15, IsKey = true, IsUnicode = true, InputMask = "")]
+        [PXSelector(typeof(LSCATransaction.referenceNumber))]
+        [PXDefault]
         [PXUIField(DisplayName = "Reference Number")]
         public virtual string ReferenceNumber { get; set; }
 
@@ -45,8 +51,10 @@ namespace LS.CarbonAccountingModule.DAC
         #region Status
 
         [PXDBString(1)]
-        [PXUIField(DisplayName = "Status")]
-        public virtual string? Status { get; set; }
+        [CarbonTranStatus]
+        [PXDefault(CarbonTranStatus.Open)]
+        [PXUIField(DisplayName = "Status", Enabled = false)]
+        public virtual string Status { get; set; }
 
         public abstract class status : BqlString.Field<status>
         {
@@ -82,7 +90,7 @@ namespace LS.CarbonAccountingModule.DAC
         #region RefNoteID
 
         [PXDBGuid()]
-        [PXUIField(DisplayName = "Ref Note ID")]
+        [PXUIField(DisplayName = "Ref Note ID", Enabled = false)]
         public virtual Guid? RefNoteID { get; set; }
 
         public abstract class refNoteID : PX.Data.BQL.BqlGuid.Field<refNoteID>
@@ -91,11 +99,37 @@ namespace LS.CarbonAccountingModule.DAC
 
         #endregion
 
+        #region InventoryTransactionType
+
+        [PXDBString(1, IsFixed = true)]
+        [INDocType.List()]
+        [PXUIField(DisplayName = "IN Tran Type", Enabled = false)]
+        public virtual string InventoryTransactionType { get; set; }
+
+        public abstract class inventoryTransactionType : BqlString.Field<inventoryTransactionType>
+        {
+        }
+
+        #endregion
+
+        #region InventoryTranRefNbr
+
+        [PXDBString(15, IsUnicode = true)]
+        [PXUIField(DisplayName = "IN Tran Ref Nbr", Enabled = false)]
+        public virtual string InventoryTranRefNbr { get; set; }
+
+        public abstract class inventoryTranRefNbr : BqlString.Field<inventoryTranRefNbr>
+        {
+        }
+
+        #endregion
+
+
         #region LastLineNbr
 
         [PXDBInt()]
         [PXDefault(0)]
-        [PXUIField(DisplayName = "Last Line Nbr")]
+        [PXUIField(DisplayName = "Last Line Nbr", Enabled = false)]
         public virtual int? LastLineNbr { get; set; }
 
         public abstract class lastLineNbr : PX.Data.BQL.BqlInt.Field<lastLineNbr>

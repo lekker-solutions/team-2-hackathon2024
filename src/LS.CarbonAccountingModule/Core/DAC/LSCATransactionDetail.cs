@@ -1,6 +1,8 @@
 ﻿using System;
 using PX.Data;
+using PX.Data.BQL;
 using PX.Data.ReferentialIntegrity.Attributes;
+using PX.Objects.IN;
 
 namespace LS.CarbonAccountingModule.DAC
 {
@@ -27,10 +29,10 @@ namespace LS.CarbonAccountingModule.DAC
 
         [PXDBString(1, IsKey = true, IsFixed = true, InputMask = "")]
         [PXDefault(typeof(LSCATransaction.transactionType))]
-        [PXUIField(DisplayName = "Transaction Type")]
+        [PXUIField(DisplayName = "Transaction Type", Visible = false, Visibility = PXUIVisibility.Invisible)]
         public virtual string TransactionType { get; set; }
 
-        public abstract class transactionType : PX.Data.BQL.BqlString.Field<transactionType>
+        public abstract class transactionType : BqlString.Field<transactionType>
         {
         }
 
@@ -41,10 +43,10 @@ namespace LS.CarbonAccountingModule.DAC
         [PXDBString(15, IsKey = true, IsUnicode = true, InputMask = "")]
         [PXDBDefault(typeof(LSCATransaction.referenceNumber))]
         [PXParent(typeof(FK.LSCATransactionFK))]
-        [PXUIField(DisplayName = "Reference Number")]
+        [PXUIField(DisplayName = "Reference Number", Visible = false, Visibility = PXUIVisibility.Invisible)]
         public virtual string ReferenceNumber { get; set; }
 
-        public abstract class referenceNumber : PX.Data.BQL.BqlString.Field<referenceNumber>
+        public abstract class referenceNumber : BqlString.Field<referenceNumber>
         {
         }
 
@@ -54,10 +56,38 @@ namespace LS.CarbonAccountingModule.DAC
 
         [PXDBInt(IsKey = true)]
         [PXLineNbr(typeof(LSCATransaction.lastLineNbr))]
-        [PXUIField(DisplayName = "Line Nbr")]
+        [PXUIField(DisplayName = "Line Nbr", Visible = false, Visibility = PXUIVisibility.Invisible)]
         public virtual int? LineNbr { get; set; }
 
-        public abstract class lineNbr : PX.Data.BQL.BqlInt.Field<lineNbr>
+        public abstract class lineNbr : BqlInt.Field<lineNbr>
+        {
+        }
+
+        #endregion
+
+        #region InventoryID
+
+        [PXSelector(typeof(InventoryItem.inventoryID),
+            typeof(InventoryItem.descr),
+            typeof(InventoryItem.stkItem),
+            SubstituteKey = typeof(InventoryItem.inventoryCD))]
+        [PXUIField(DisplayName = "Inventory ID")]
+        public virtual int? InventoryID { get; set; }
+
+        public abstract class inventoryID : BqlInt.Field<inventoryID>
+        {
+        }
+
+        #endregion
+
+        #region UOM
+
+        [PXDefault(typeof(Selector<inventoryID, InventoryItem.baseUnit>), PersistingCheck = PXPersistingCheck.Nothing)]
+        [INUnit(typeof(inventoryID))]
+        [PXUIField(DisplayName = "UOM")]
+        public virtual string UOM { get; set; }
+
+        public abstract class uOM : BqlString.Field<uOM>
         {
         }
 
@@ -69,11 +99,48 @@ namespace LS.CarbonAccountingModule.DAC
         [PXUIField(DisplayName = "Qty")]
         public virtual Decimal? Qty { get; set; }
 
-        public abstract class qty : PX.Data.BQL.BqlDecimal.Field<qty>
+        public abstract class qty : BqlDecimal.Field<qty>
         {
         }
 
         #endregion
+
+        #region BaseQty
+
+        [PXDBDecimal(6)]
+        [PXUIField(DisplayName = "Base Qty")]
+        public virtual decimal? BaseQty { get; set; }
+
+        public abstract class baseQty : BqlDecimal.Field<baseQty>
+        {
+        }
+
+        #endregion
+
+        #region Rate
+
+        [PXDBDecimal(6)]
+        [PXUIField(DisplayName = "Rate")]
+        public virtual decimal? Rate { get; set; }
+
+        public abstract class rate : BqlDecimal.Field<rate>
+        {
+        }
+
+        #endregion
+
+        #region ExtCarbonEquivQty
+
+        [PXDBDecimal(6)]
+        [PXUIField(DisplayName = "Total t C02-eq")]
+        public virtual decimal? ExtCarbonEquivQty { get; set; }
+
+        public abstract class extCarbonEquivQty : BqlDecimal.Field<extCarbonEquivQty>
+        {
+        }
+
+        #endregion
+
 
         #region ReasonCode
 
@@ -81,7 +148,7 @@ namespace LS.CarbonAccountingModule.DAC
         [PXUIField(DisplayName = "Reason Code")]
         public virtual string ReasonCode { get; set; }
 
-        public abstract class reasonCode : PX.Data.BQL.BqlString.Field<reasonCode>
+        public abstract class reasonCode : BqlString.Field<reasonCode>
         {
         }
 
@@ -93,7 +160,7 @@ namespace LS.CarbonAccountingModule.DAC
         [PXUIField(DisplayName = "Tran Descr")]
         public virtual string TranDescr { get; set; }
 
-        public abstract class tranDescr : PX.Data.BQL.BqlString.Field<tranDescr>
+        public abstract class tranDescr : BqlString.Field<tranDescr>
         {
         }
 

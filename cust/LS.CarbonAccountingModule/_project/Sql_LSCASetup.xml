@@ -2,8 +2,9 @@
     <CDATA name="TableSchemaXml"><![CDATA[<table name="LSCASetup">
   <col name="CompanyID" type="Int" default="Zero" />
   <col name="TransactionNumberingID" type="NVarChar(15)" nullable="true" />
+  <col name="CarbonSiteID" type="Int" nullable="true" />
   <col name="CarbonInventoryID" type="Int" nullable="true" />
-  <index name="PK__LSCASetu__2D971C4C641C57D3" clustered="true" primary="true" unique="true">
+  <index name="PK__LSCASetu__2D971C4CFBAF6756" clustered="true" primary="true" unique="true">
     <col name="CompanyID" />
   </index>
 </table>]]></CDATA>
