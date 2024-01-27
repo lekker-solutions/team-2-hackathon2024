@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 <!-- CTC SETTINGS -->
 <PropertyGroup>
-   <AcumaticaSiteDir>..\..\CarbonAccounting\</AcumaticaSiteDir>
+   <AcumaticaSiteDir>..\..\CarbonAccounting_23_2\</AcumaticaSiteDir>
    <CustDir>..\..\cust\$(AssemblyName)\</CustDir>
    <CustBuildZip>..\..\$(AssemblyName)</CustBuildZip>
    <AcuVersion>23.207.0025</AcuVersion>
