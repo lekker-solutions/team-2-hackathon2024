@@ -125,10 +125,9 @@ namespace LS.CarbonAccountingModule
             Save.Press();
         }
 
-        public static void CreateCarbonTransaction<TSource>(TSource                            source,
+        public static void CreateCarbonTransaction<TSource>(Guid?                              noteId,
                                                             DateTime?                          transactionDate,
                                                             IEnumerable<LSCATransactionDetail> transactions)
-            where TSource : INotable
         {
             var graph = PXGraph.CreateInstance<LSCATransactionEntry>();
             var document = graph.Document.Insert(new LSCATransaction()
@@ -140,7 +139,7 @@ namespace LS.CarbonAccountingModule
                         : CarbonTranType.Capture
             });
             document.TranDate  = transactionDate;
-            document.RefNoteID = source.NoteID;
+            document.RefNoteID = noteId;
             foreach (LSCATransactionDetail detail in transactions)
             {
                 detail.ReferenceNumber = null;
