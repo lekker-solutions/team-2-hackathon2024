@@ -74,7 +74,7 @@ namespace LS.CarbonAccountingModule
         [PXButton(CommitChanges = true)]
         public IEnumerable actionRelease(PXAdapter adapter)
         {
-            var list = adapter.Get<LSCATransaction>().ToList();
+            var list = Save.Press(adapter).Cast<LSCATransaction>().ToList();
             PXLongOperation.StartOperation(this, () =>
             {
                 var graph = PXGraph.CreateInstance<LSCATransactionEntry>();
@@ -125,9 +125,9 @@ namespace LS.CarbonAccountingModule
             Save.Press();
         }
 
-        public static void CreateCarbonTransaction<TSource>(Guid?                              noteId,
-                                                            DateTime?                          transactionDate,
-                                                            IEnumerable<LSCATransactionDetail> transactions)
+        public static void CreateCarbonTransaction(Guid?                              noteId,
+                                                   DateTime?                          transactionDate,
+                                                   IEnumerable<LSCATransactionDetail> transactions)
         {
             var graph = PXGraph.CreateInstance<LSCATransactionEntry>();
             var document = graph.Document.Insert(new LSCATransaction()
