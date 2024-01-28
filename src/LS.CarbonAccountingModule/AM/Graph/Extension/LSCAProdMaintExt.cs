@@ -3,6 +3,9 @@ using LS.CarbonAccountingModule.DAC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using LS.CarbonAccountingModule.Helper;
+using PX.Common;
 using PX.Data;
 using PX.Data.BQL.Fluent;
 using PX.Objects.AM;
@@ -19,15 +22,18 @@ namespace LS.CarbonAccountingModule.AM.Graph.Extension
             Where<AMProdMatl.orderType.IsEqual<AMProdItem.orderType.FromCurrent>
                 .And<AMProdMatl.prodOrdID.IsEqual<AMProdItem.prodOrdID.FromCurrent>>>.View AllProdMatlRecords;
 
-        public SelectFrom<AMProdMatl>.
-            Where<AMProdMatl.orderType.IsEqual<AMProdItem.orderType.FromCurrent>
-                .And<AMProdMatl.prodOrdID.IsEqual<AMProdItem.prodOrdID.FromCurrent>>>.View AllAMProdOperRecords;
+        public SelectFrom<AMProdOper>.
+            Where<AMProdOper.orderType.IsEqual<AMProdItem.orderType.FromCurrent>
+                .And<AMProdOper.prodOrdID.IsEqual<AMProdItem.prodOrdID.FromCurrent>>>.View AllAMProdOperRecords;
 
-        // Acuminator disable once PX1096 PXOverrideSignatureMismatch [Justification]
-        [PXOverride]
-        public IEnumerable Release(PXAdapter adapter, Action<PXAdapter> baseMethod)
+        public PXAction<AMProdItem> release;
+
+        [PXUIField(DisplayName = "Release Order", MapEnableRights = PXCacheRights.Update,
+            MapViewRights = PXCacheRights.Update)]
+        [PXProcessButton]
+        public virtual IEnumerable Release(PXAdapter adapter)
         {
-            baseMethod(adapter);
+            var items = Base.release.Press(adapter);
 
             List<LSCATransactionDetail> details = CreateMaterialDetailLines();
             List<LSCATransactionDetail> opsDetails = CreateOperationDetailLines();
@@ -64,7 +70,7 @@ namespace LS.CarbonAccountingModule.AM.Graph.Extension
         private List<LSCATransactionDetail> CreateOperationDetailLines()
         {
             List<LSCATransactionDetail> details = new List<LSCATransactionDetail>();
-            foreach (var operationalRecord in AllProdMatlRecords.View.SelectMulti().RowCast<AMProdOper>())
+            foreach (var operationalRecord in AllAMProdOperRecords.View.SelectMulti().RowCast<AMProdOper>())
             {
                 var detailRecord = new LSCATransactionDetail
                 {

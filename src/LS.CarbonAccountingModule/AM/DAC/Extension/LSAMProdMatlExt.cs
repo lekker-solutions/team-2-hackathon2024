@@ -23,6 +23,7 @@ namespace LS.CarbonAccountingModule.AM.DAC.Extension
         #region CarbonEmission
         public abstract class carbonEmission : PX.Data.BQL.BqlDecimal.Field<carbonEmission> { }
 
+        [PXDecimal(6)]
         [PXDefault(typeof(Search<LSACInventoryItemExt.carbonEmission, Where<InventoryItem.inventoryID,
             Equal<Current<AMProdMatl.inventoryID>>>>), PersistingCheck = PXPersistingCheck.Nothing)]
         [PXUnboundDefault(TypeCode.Decimal, "0.0")]
@@ -34,8 +35,9 @@ namespace LS.CarbonAccountingModule.AM.DAC.Extension
         #region TotalCarbonEmission
         public abstract class totalCarbonEmission : PX.Data.BQL.BqlDecimal.Field<totalCarbonEmission> { }
 
+        [PXDecimal(6)]
         //[PXQuantity(typeof(InventoryItem.carbonEmission), typeof(AMProdMatl.baseQtyActual))]
-        [PXFormula(typeof(Mult<carbonEmission, AMProdMatl.baseQtyActual>))]
+        [PXFormula(typeof(Mult<carbonEmission, AMProdMatl.qtyReq>))]
         [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         [PXUIField(DisplayName = "Total Carbon Emission in kg", Enabled = false)]
         public decimal? TotalCarbonEmission { get; set; }

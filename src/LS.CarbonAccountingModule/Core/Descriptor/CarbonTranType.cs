@@ -15,10 +15,13 @@ namespace LS.CarbonAccountingModule.Descriptor
 {
     public class CarbonTranType : PXStringListAttribute
     {
-        public const string Emission = "E";
+        public const string Emission    = "E";
+        public const string EmissionCut = "T";
+
         public const string Capture  = "C";
 
         public CarbonTranType() : base(Pair(CarbonTranType.Emission, nameof(CarbonTranType.Emission)),
+            Pair(CarbonTranType.EmissionCut, "Emission Cut"),
             Pair(CarbonTranType.Capture, nameof(CarbonTranType.Capture)))
         {
         }
