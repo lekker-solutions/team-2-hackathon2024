@@ -3,12 +3,12 @@ CREATE TABLE LSCATransaction (
     CompanyID int NOT NULL,
     TransactionType char(1) NOT NULL,
     ReferenceNumber nvarchar(15) NOT NULL,
-	Status char(1) NOT NULL,
+	Status nvarchar(1) NOT NULL,
     TranDate smalldatetime NULL,
     Descr nvarchar(125) NULL,
     RefNoteID uniqueidentifier NULL,
     LastLineNbr int NULL DEFAULT 0,
-	InventoryTransactionType char(1) NULL,
+	InventoryTransactionType nvarchar(1) NULL,
 	InventoryTranRefNbr nvarchar(15) NULL
     PRIMARY KEY (CompanyID, TransactionType, ReferenceNumber)
 );
@@ -16,7 +16,7 @@ CREATE TABLE LSCATransaction (
 DROP TABLE LSCATransactionDetail
 CREATE TABLE LSCATransactionDetail (
     CompanyID int NOT NULL,
-    TransactionType char(1) NOT NULL,
+    TransactionType nvarchar(1) NOT NULL,
     ReferenceNumber nvarchar(15) NOT NULL,
     LineNbr int NOT NULL,
 	InventoryID int NULL,
@@ -25,7 +25,7 @@ CREATE TABLE LSCATransactionDetail (
 	BaseQty decimal(25, 6) NULL,
 	Rate decimal(9, 6) NULL,
 	ExtCarbonEquivQty decimal(25, 6) NULL,
-    ReasonCode nvarchar(15) NULL,
+    ReasonCode nvarchar(20) NULL,
     TranDescr nvarchar(125) NULL,
     PRIMARY KEY (CompanyID, TransactionType, ReferenceNumber, LineNbr)
 );

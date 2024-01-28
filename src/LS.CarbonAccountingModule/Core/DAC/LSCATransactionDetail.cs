@@ -1,7 +1,9 @@
 ﻿using System;
+using LS.CarbonAccountingModule.DAC.Extension;
 using PX.Data;
 using PX.Data.BQL;
 using PX.Data.ReferentialIntegrity.Attributes;
+using PX.Objects.CS;
 using PX.Objects.IN;
 
 namespace LS.CarbonAccountingModule.DAC
@@ -17,7 +19,7 @@ namespace LS.CarbonAccountingModule.DAC
                 => FindBy(graph, transactionType, referenceNbr, lineNbr);
         }
 
-        public class FK
+        public static class FK
         {
             public class LSCATransactionFK : LSCATransaction.PK.ForeignKeyOf<LSCATransactionDetail>.By<transactionType,
                 referenceNumber>
@@ -148,7 +150,11 @@ namespace LS.CarbonAccountingModule.DAC
 
         #region ReasonCode
 
-        [PXDBString(15, IsUnicode = true, InputMask = "")]
+        [PXDBString(20, IsUnicode = true)]
+        [PXSelector(
+            typeof(Search<ReasonCode.reasonCodeID, Where<LSCAReasonCodeExt.usrLSCAForCarbonAccounting, Equal<True>>>),
+            typeof(ReasonCode.reasonCodeID),
+            typeof(ReasonCode.usage))]
         [PXUIField(DisplayName = "Reason Code")]
         public virtual string ReasonCode { get; set; }
 
@@ -161,7 +167,7 @@ namespace LS.CarbonAccountingModule.DAC
         #region TranDescr
 
         [PXDBString(125, IsUnicode = true, InputMask = "")]
-        [PXUIField(DisplayName = "Tran Descr")]
+        [PXUIField(DisplayName = "Description")]
         public virtual string TranDescr { get; set; }
 
         public abstract class tranDescr : BqlString.Field<tranDescr>
