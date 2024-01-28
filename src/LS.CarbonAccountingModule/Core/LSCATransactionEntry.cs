@@ -74,7 +74,7 @@ namespace LS.CarbonAccountingModule
         [PXButton(CommitChanges = true)]
         public IEnumerable actionRelease(PXAdapter adapter)
         {
-            var list = adapter.Get<LSCATransaction>().ToList();
+            var list = Save.Press(adapter).Cast<LSCATransaction>().ToList();
             PXLongOperation.StartOperation(this, () =>
             {
                 var graph = PXGraph.CreateInstance<LSCATransactionEntry>();
