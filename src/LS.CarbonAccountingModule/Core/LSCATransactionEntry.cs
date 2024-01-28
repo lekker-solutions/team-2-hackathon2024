@@ -130,6 +130,26 @@ namespace LS.CarbonAccountingModule
                                                             IEnumerable<LSCATransactionDetail> transactions)
             where TSource : INotable
         {
+            var graph = PXGraph.CreateInstance<LSCATransactionEntry>();
+            var document = graph.Document.Insert(new LSCATransaction()
+            {
+                TransactionType =
+                    transactions.Sum(t =>
+                        t.ExtCarbonEquivQty.GetValueOrDefault()) > 0
+                        ? CarbonTranType.Emission
+                        : CarbonTranType.Capture
+            });
+            document.TranDate  = transactionDate;
+            document.RefNoteID = source.NoteID;
+            foreach (LSCATransactionDetail detail in transactions)
+            {
+                detail.ReferenceNumber = null;
+                detail.TransactionType = null;
+                detail.LineNbr         = null;
+                graph.Transactions.Insert(detail);
+            }
+
+            graph.ActionRelease.Press();
         }
 
 
