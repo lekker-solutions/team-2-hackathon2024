@@ -1,0 +1,11 @@
+﻿<Sql TableName="SNZCTransferShippingDetail" TableSchemaXml="#CDATA">
+    <CDATA name="TableSchemaXml"><![CDATA[<table name="SNZCTransferShippingDetail">
+  <col name="CompanyID" type="Int" nullable="true" default="Zero" />
+  <col name="RefNbr" type="NVarChar(15)" nullable="true" />
+  <col name="DocType" type="NVarChar(1)" nullable="true" />
+  <col name="TransportType" type="NVarChar(1)" nullable="true" />
+  <col name="Distance" type="Decimal(10,2)" nullable="true" />
+  <col name="CarbonWeight" type="Decimal(10,2)" nullable="true" />
+  <col name="TotalCarbonCost" type="Decimal(10,2)" nullable="true" />
+</table>]]></CDATA>
+</Sql>

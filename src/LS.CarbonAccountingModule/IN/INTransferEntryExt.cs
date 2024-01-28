@@ -45,6 +45,15 @@ namespace LS.CarbonAccountingModule
                 return;
 
             RecalculateTotalCarbonCost(row);
+
+            //new string[] { "F", "S", "T", "A", "B" },
+            //new string[] { "Fleet Truck", "Fleet Semi", "Train", "Air Freight", "Boat Freight" })]
+            row.CarbonWeight = row.TransportType == "F" ? 3.5m :
+                row.TransportType == "S" ? 1 :
+                row.TransportType == "T" ? 3 :
+                row.TransportType == "A" ? 5 :
+                row.TransportType == "B" ? 2 :
+                0;
         }
 
         protected void _(Events.FieldUpdated<SNZCTransferShippingDetail, SNZCTransferShippingDetail.distance> e)
@@ -74,6 +83,9 @@ namespace LS.CarbonAccountingModule
                     break;
                 case "B":
                     row.TotalCarbonCost = row.Distance * 2;
+                    break;
+                default:
+                    row.TotalCarbonCost = 0;
                     break;
             }
         }
@@ -120,7 +132,7 @@ namespace LS.CarbonAccountingModule
                 targetDetail.TransportType == "B" ? "Boat Freight" : string.Empty) +
                 " transportation.";
 
-            LSCATransactionEntry.CreateCarbonTransaction<INRegister>(targetRecord, targetRecord.TranDate, carbonDetail.AsSingleEnumerable());
+            LSCATransactionEntry.CreateCarbonTransaction<INRegister>(targetRecord.NoteID, targetRecord.TranDate, carbonDetail.AsSingleEnumerable());
 
             return list;
         }
