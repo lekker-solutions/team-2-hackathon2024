@@ -63,6 +63,7 @@
     <Folder Include="Core\Helper\" />
     <Folder Include="Core\Autofac\" />
     <Folder Include="Pages\IN\" />
+    <Folder Include="SourceFiles\DbScripts\" />
   </ItemGroup>
 
   <!-- Build Settings -->
