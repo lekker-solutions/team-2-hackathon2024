@@ -62,6 +62,7 @@
   <ItemGroup>
     <Folder Include="Core\Helper\" />
     <Folder Include="Core\Autofac\" />
+    <Folder Include="Pages\IN\" />
   </ItemGroup>
 
   <!-- Build Settings -->
