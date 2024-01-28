@@ -1,13 +1,7 @@
 ﻿using PX.Data;
 using PX.Data.BQL;
 using PX.Data.BQL.Fluent;
-using PX.Objects.FA;
 using PX.Objects.IN;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LS.CarbonAccountingModule
 {

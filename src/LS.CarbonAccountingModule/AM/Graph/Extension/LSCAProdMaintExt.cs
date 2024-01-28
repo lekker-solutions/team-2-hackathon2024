@@ -3,9 +3,10 @@ using LS.CarbonAccountingModule.DAC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PX.Data;
+using PX.Data.BQL.Fluent;
+using PX.Objects.AM;
+using PX.Objects.IN;
 
 namespace LS.CarbonAccountingModule.AM.Graph.Extension
 {
@@ -14,14 +15,15 @@ namespace LS.CarbonAccountingModule.AM.Graph.Extension
     {
         public static bool IsActive() => true;
 
-        public SelectFrom<LSAMProdMatlExt>.
-            Where<LSAMProdMatlExt.orderType.IsEqual<AMProdItem.orderType.FromCurrent>
-                .And<LSAMProdMatlExt.prodOrdID.IsEqual<AMProdItem.prodOrdID.FromCurrent>>>.View AllProdMatlRecords;
+        public SelectFrom<AMProdMatl>.
+            Where<AMProdMatl.orderType.IsEqual<AMProdItem.orderType.FromCurrent>
+                .And<AMProdMatl.prodOrdID.IsEqual<AMProdItem.prodOrdID.FromCurrent>>>.View AllProdMatlRecords;
 
-        public SelectFrom<LSAMProdOperExt>.
-            Where<LSAMProdOperExt.orderType.IsEqual<AMProdItem.orderType.FromCurrent>
-                .And<LSAMProdOperExt.prodOrdID.IsEqual<AMProdItem.prodOrdID.FromCurrent>>>.View AllAMProdOperRecords;
+        public SelectFrom<AMProdMatl>.
+            Where<AMProdMatl.orderType.IsEqual<AMProdItem.orderType.FromCurrent>
+                .And<AMProdMatl.prodOrdID.IsEqual<AMProdItem.prodOrdID.FromCurrent>>>.View AllAMProdOperRecords;
 
+        // Acuminator disable once PX1096 PXOverrideSignatureMismatch [Justification]
         [PXOverride]
         public IEnumerable Release(PXAdapter adapter, Action<PXAdapter> baseMethod)
         {
@@ -29,8 +31,9 @@ namespace LS.CarbonAccountingModule.AM.Graph.Extension
 
             List<LSCATransactionDetail> details = CreateMaterialDetailLines();
             List<LSCATransactionDetail> opsDetails = CreateOperationDetailLines();
-
-            LSCATransactionEntry.CreateCarbonTransaction<AMProdItem>(Base.ProdItemSelected.Current.NoteID, Base.ProdItemSelected.Current.ProdDate, details.AddRange(opsDetails));
+            details.AddRange(opsDetails);
+            LSCATransactionEntry.CreateCarbonTransaction(Base.ProdItemSelected.Current.NoteID,
+                Base.ProdItemSelected.Current.ProdDate, details);
 
             return adapter.Get();
         }
@@ -38,14 +41,18 @@ namespace LS.CarbonAccountingModule.AM.Graph.Extension
         private List<LSCATransactionDetail> CreateMaterialDetailLines()
         {
             List<LSCATransactionDetail> details = new List<LSCATransactionDetail>();
-            foreach (var materialRecord in AllProdMatlRecords.View.SelectMulti().RowCast<LSAMProdMatlExt>())
+            foreach (var materialRecord in AllProdMatlRecords.View.SelectMulti().RowCast<AMProdMatl>())
             {
                 var detailRecord = new LSCATransactionDetail
                 {
-                    InventoryID = materialRecord.InventoryID,
-                    Qty = materialRecord.Qty,
-                    BaseQty = materialRecord.BaseQty,
-                    Rate = materialRecord.CarbonEmission
+                    InventoryID       = materialRecord.InventoryID,
+                    Qty               = materialRecord.Qty,
+                    BaseQty           = materialRecord.BaseQty,
+                    Rate              = materialRecord.GetExtension<LSAMProdMatlExt>().CarbonEmission,
+                    ExtCarbonEquivQty = materialRecord.GetExtension<LSAMProdMatlExt>().TotalCarbonEmission,
+                    TranDescr =
+                        $"Production Order {materialRecord.ProdOrdID} - Consumption of {materialRecord.Qty} Item {InventoryItem.PK.Find(Base, materialRecord.InventoryID)?.InventoryCD}",
+                    ReasonCode = "PRODUCTION"
                 };
 
                 details.Add(detailRecord);
@@ -57,14 +64,17 @@ namespace LS.CarbonAccountingModule.AM.Graph.Extension
         private List<LSCATransactionDetail> CreateOperationDetailLines()
         {
             List<LSCATransactionDetail> details = new List<LSCATransactionDetail>();
-            foreach (var operationalRecord in AllProdMatlRecords.View.SelectMulti().RowCast<LSAMProdOperExt>())
+            foreach (var operationalRecord in AllProdMatlRecords.View.SelectMulti().RowCast<AMProdOper>())
             {
                 var detailRecord = new LSCATransactionDetail
                 {
-                    InventoryID = operationalRecord.WcID,
-                    Qty = operationalRecord.RunUnits,
-                    BaseQty = operationalRecord.BaseTotalQty,
-                    Rate = operationalRecord.CarbonEmission
+                    Qty               = operationalRecord.RunUnits,
+                    BaseQty           = operationalRecord.BaseTotalQty,
+                    Rate              = operationalRecord.GetExtension<LSAMProdOperExt>().CarbonEmission,
+                    ExtCarbonEquivQty = operationalRecord.GetExtension<LSAMProdOperExt>().TotalCarbonEmission,
+                    TranDescr =
+                        $"Production Order {operationalRecord.ProdOrdID}: Operation {operationalRecord.OperationCD} - Work Center {operationalRecord.WcID}",
+                    ReasonCode = "PRODUCTION"
                 };
 
                 details.Add(detailRecord);

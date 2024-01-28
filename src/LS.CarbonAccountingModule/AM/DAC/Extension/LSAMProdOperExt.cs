@@ -10,10 +10,9 @@
 #endregion
 
 using PX.Data;
-using PX.Data.BQL;
 using PX.Objects.AM;
-using System.Data.SqlTypes;
 using System;
+using PX.Objects.IN;
 
 namespace LS.CarbonAccountingModule.AM.DAC.Extension
 {
@@ -23,28 +22,22 @@ namespace LS.CarbonAccountingModule.AM.DAC.Extension
         #region CarbonEmission
         public abstract class carbonEmission : PX.Data.BQL.BqlDecimal.Field<carbonEmission> { }
 
-        [PXDefault(typeof(Search<LSAMWCExt.carbonEmission, Where<LSAMWCExt.wcID,
-            Equal<Current<LSAMProdOperExt.wcID>>>>), PersistingCheck = PXPersistingCheck.Nothing)]
+        [PXDefault(typeof(Search<LSAMWCExt.carbonEmission, Where<InventoryItem.inventoryID,
+            Equal<Current<AMProdOper.wcID>>>>), PersistingCheck = PXPersistingCheck.Nothing)]
         [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         [PXUIField(DisplayName = "Carbon Emission", Enabled = false)]
-        public virtual Decimal? CarbonEmission
-        {
-            get;
-            set;
-        }
+        public decimal? CarbonEmission { get; set; }
+
         #endregion
 
         #region TotalCarbonEmission
         public abstract class totalCarbonEmission : PX.Data.BQL.BqlDecimal.Field<totalCarbonEmission> { }
 
-        [PXFormula(typeof(Mult<LSAMProdOperExt.carbonEmission, LSAMProdOperExt.runUnits>))]
+        [PXFormula(typeof(Mult<carbonEmission, AMProdOper.runUnits>))]
         [PXUnboundDefault(TypeCode.Decimal, "0.0")]
         [PXUIField(DisplayName = "Total Carbon Emission in kg", Enabled = false)]
-        public virtual Decimal? TotalCarbonEmission
-        {
-            get;
-            set;
-        }
+        public decimal? TotalCarbonEmission { get; set; }
+
         #endregion
     }
 }

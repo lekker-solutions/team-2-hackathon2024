@@ -10,9 +10,7 @@
 #endregion
 
 using PX.Data;
-using PX.Data.BQL;
 using PX.Objects.AM;
-using System.Data.SqlTypes;
 using System;
 
 namespace LS.CarbonAccountingModule.AM.DAC.Extension
@@ -38,17 +36,15 @@ namespace LS.CarbonAccountingModule.AM.DAC.Extension
         //	Aggregate<Sum<AMProdMatl.totalCarbonEmission>>>))]
 
 
-        [PXDefault(typeof(Search5<AMProdItem.totalCarbonEmission,
-            InnerJoin<AMProdMatl, On<AMProdMatl.orderType, Equal<Current<AMProdItem.orderType>>, And<AMProdMatl.prodOrdID, Equal<Current<AMProdItem.prodOrdID>>>>>,
+        [PXDefault(typeof(Search5<totalCarbonEmission,
+            InnerJoin<AMProdMatl, On<AMProdMatl.orderType, Equal<Current<AMProdItem.orderType>>,
+                And<AMProdMatl.prodOrdID, Equal<Current<AMProdItem.prodOrdID>>>>>,
             Aggregate<
                 Sum<LSAMProdMatlExt.totalCarbonEmission>>>), PersistingCheck = PXPersistingCheck.Nothing)]
         [PXDecimal(6)]
         [PXUIField(DisplayName = "Total Carbon Emission in kg", Enabled = false)]
-        public virtual Decimal? TotalCarbonEmission
-        {
-            get;
-            set;
-        }
+        public decimal? TotalCarbonEmission { get; set; }
+
         #endregion
     }
 }
