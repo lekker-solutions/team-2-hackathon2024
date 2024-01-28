@@ -120,19 +120,23 @@ namespace LS.CarbonAccountingModule
             INRegister targetRecord = list.FirstOrDefault();
             SNZCTransferShippingDetail targetDetail = CarbonDetail.Current;
 
-            LSCATransactionDetail carbonDetail = new LSCATransactionDetail();
-            carbonDetail.TransactionType = targetRecord.DocType;
-            carbonDetail.ReferenceNumber = targetRecord.RefNbr;
-            carbonDetail.ExtCarbonEquivQty = targetDetail.TotalCarbonCost;
-            carbonDetail.TranDescr = targetDetail.Distance + " miles using " +
-                (targetDetail.TransportType == "F" ? "Fleet Truck" :
-                targetDetail.TransportType == "S" ? "Fleet Semi" :
-                targetDetail.TransportType == "T" ? "Train" :
-                targetDetail.TransportType == "A" ? "Air Freight" :
-                targetDetail.TransportType == "B" ? "Boat Freight" : string.Empty) +
-                " transportation.";
+            LSCATransactionDetail carbonDetail = new()
+            {
+                TransactionType   = targetRecord.DocType,
+                ReferenceNumber   = targetRecord.RefNbr,
+                ExtCarbonEquivQty = targetDetail.TotalCarbonCost,
+                TranDescr = targetDetail.Distance + " miles using " +
+                            (targetDetail.TransportType    == "F" ? "Fleet Truck" :
+                                targetDetail.TransportType == "S" ? "Fleet Semi" :
+                                targetDetail.TransportType == "T" ? "Train" :
+                                targetDetail.TransportType == "A" ? "Air Freight" :
+                                targetDetail.TransportType == "B" ? "Boat Freight" : string.Empty) +
+                            " transportation.",
+                ReasonCode = "TRANSPORT"
+            };
 
-            LSCATransactionEntry.CreateCarbonTransaction<INRegister>(targetRecord.NoteID, targetRecord.TranDate, carbonDetail.AsSingleEnumerable());
+            LSCATransactionEntry.CreateCarbonTransaction(targetRecord.NoteID, targetRecord.TranDate,
+                carbonDetail.AsSingleEnumerable());
 
             return list;
         }

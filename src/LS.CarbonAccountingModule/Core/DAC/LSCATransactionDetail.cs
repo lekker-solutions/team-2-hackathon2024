@@ -97,7 +97,7 @@ namespace LS.CarbonAccountingModule.DAC
 
         #region Qty
 
-        [PXDBQuantity(typeof(uOM), typeof(baseQty), HandleEmptyKey = true)]
+        [PXDBDecimal(6)]
         [PXUIField(DisplayName = "Qty")]
         [PXDefault(TypeCode.Decimal, "0.0")]
         public virtual Decimal? Qty { get; set; }
