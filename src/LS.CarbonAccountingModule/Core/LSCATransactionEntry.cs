@@ -8,6 +8,7 @@ using PX.Data;
 using PX.Data.BQL.Fluent;
 using PX.Data.WorkflowAPI;
 using PX.Objects.IN;
+using PX.Objects.PO;
 
 namespace LS.CarbonAccountingModule
 {
@@ -65,13 +66,6 @@ namespace LS.CarbonAccountingModule
                     ActionReleaseFromHold.SetEnabled(false);
                     break;
             }
-
-            if (e.Row.Status == CarbonTranStatus.Released)
-            {
-            }
-            else
-            {
-            }
         }
 
         public PXAction<LSCATransaction> ActionRelease;
@@ -95,7 +89,7 @@ namespace LS.CarbonAccountingModule
                             graph.PostEmissionTransaction();
                             break;
                         case CarbonTranType.Capture:
-                            graph.PostEmissionTransaction();
+                            graph.PostCaptureTransaction();
                             break;
                         default:
                             throw new ArgumentOutOfRangeException(nameof(transaction.TransactionType),
@@ -138,6 +132,7 @@ namespace LS.CarbonAccountingModule
         {
         }
 
+
         public void PostEmissionTransaction()
         {
             _issueEntry.Value.Clear(PXClearOption.ClearAll);
@@ -155,6 +150,7 @@ namespace LS.CarbonAccountingModule
                 _issueEntry.Value.transactions.Update(tran);
             }
 
+            _issueEntry.Value.releaseFromHold.Press();
             _issueEntry.Value.release.Press();
 
             Document.Current.InventoryTransactionType = _issueEntry.Value.issue.Current.DocType;
@@ -172,8 +168,15 @@ namespace LS.CarbonAccountingModule
             receipt.TranDesc = this.Document.Current.Descr;
             foreach (LSCATransactionDetail detail in Transactions.SelectMain())
             {
+                var tran = _receiptEntry.Value.transactions.Insert();
+                _receiptEntry.Value.transactions.Cache.SetValueExt<INTran.inventoryID>(tran,
+                    Setup.Current.CarbonInventoryID);
+                _receiptEntry.Value.transactions.Cache.SetValueExt<INTran.qty>(tran, detail.ExtCarbonEquivQty);
+                tran.TranDesc = detail.TranDescr;
+                _receiptEntry.Value.transactions.Update(tran);
             }
 
+            _receiptEntry.Value.releaseFromHold.Press();
             _receiptEntry.Value.release.Press();
             Document.Current.InventoryTransactionType = _receiptEntry.Value.receipt.Current.DocType;
             Document.Current.InventoryTranRefNbr      = _receiptEntry.Value.receipt.Current.RefNbr;

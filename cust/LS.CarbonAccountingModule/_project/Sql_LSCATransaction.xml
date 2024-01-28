@@ -3,14 +3,14 @@
   <col name="CompanyID" type="Int" default="Zero" />
   <col name="TransactionType" type="Char(1)" />
   <col name="ReferenceNumber" type="NVarChar(15)" />
-  <col name="Status" type="Char(1)" />
+  <col name="Status" type="NVarChar(1)" />
   <col name="TranDate" type="SmallDateTime" nullable="true" />
   <col name="Descr" type="NVarChar(125)" nullable="true" />
   <col name="RefNoteID" type="UniqueIdentifier" nullable="true" />
   <col name="LastLineNbr" type="Int" nullable="true" default="Zero" />
-  <col name="InventoryTransactionType" type="Char(1)" nullable="true" />
+  <col name="InventoryTransactionType" type="NVarChar(1)" nullable="true" />
   <col name="InventoryTranRefNbr" type="NVarChar(15)" nullable="true" />
-  <index name="PK__LSCATran__6D437B77D62F8D88" clustered="true" primary="true" unique="true">
+  <index name="PK__LSCATran__6D437B77373FA3FC" clustered="true" primary="true" unique="true">
     <col name="CompanyID" />
     <col name="TransactionType" />
     <col name="ReferenceNumber" />

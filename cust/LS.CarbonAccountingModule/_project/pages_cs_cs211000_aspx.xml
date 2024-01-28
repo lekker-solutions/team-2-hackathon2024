@@ -1,0 +1,14 @@
+﻿<Page path="~/pages/cs/cs211000.aspx" ControlId="1" pageSource="nVRNc9owED0nM/kPGnVyLASOGbvTjAkNMyFlMPm4dYS9gBpZciU5QA757V35o2AChukJs1q9fW/1dr3L72TE5kDumZxn+OHT4AslQ2YsaHfQ5wJjH+1NxLT7SidPHJatJA9ScpNZdfsG0j5zDVnqU6szoOSJCR4zC2P4k4GxPp0xYTAeqLjEDcJup3N1ddViJl21IkPJQC5Ac2t86mr9qhIomXDrbjxK6z7inDUll98uzi/OPVRREJysUyBPXNuMiRGzi6PUHYCH1a8DJS0qIIOeTyP87jieeWgkWAR3SsSg3WG66IWU6EwyVBSCfkMYBDnz0tX16KXHLAtVpiPIkWLzL9UUqcjO8KmTMsmb9MxjRxNFXqJIpP/AEjwcvbR+Tn9DZE0rCFtjYEZJ17ch49JSMtI8YXrtpPhU56cRnlJyBwx59sBEmqeWK9nnIGKf5pGc55kXMCGmLHoNVJIwGZs8WvEPd05JwWcgkb8rrIx1Gp10MaOk3XzZ/XIbLNBdYCrJBWLI3uDo/SK1z7XZUzu0TNsHWP7QamO6kwDv2T684qrX3tcfr73zvM437S3jHPJR97CP+odtVPk0h5nhn082Cu3amej9K5cxrK5Jxw1JzUyO6xCSKei6RQKWG8OnhavycUTrQZIKHFZHFj3mLpV2cdMd8ncgW0fPWFUtKbmVDL0cVy875PIO+HyBPLuOT9nRCnv7ae7ZWmV2nAn4rAyfNVAiS2SF6yprJRwLnw4pbqspCFOqDYc7r46viYOjdN48iDfDM+h9aqNrUjki9bwa4gRW9jbmtkQshqkBqkyoe1GrtKeWcv9MFMCPJt9qh4HLhB258wTthWvutYQJs6n71wRUpgykW9tKr5sE10p0T0A9QrAW6ZyA1+eSyahJd0NPb6JIZdI2v/1W0vHeNkOVCW5qxjDTYBYbF+8h+T+SQibAIOUjomppx2S53OPatrJOFFgt1e0dUC7TasntWaV/AQ==">
+    <PXFormView ID="form" ParentId="phF_form" TypeFullName="PX.Web.UI.PXFormView">
+        <Children Key="Template">
+            <AddItem>
+                <PXCheckBox TypeFullName="PX.Web.UI.PXCheckBox">
+                    <Prop Key="Virtual:ApplyStylesheetSkin" />
+                    <Prop Key="ID" Value="chkUsrLSCAForCarbonAccounting" />
+                    <Prop Key="DataField" Value="UsrLSCAForCarbonAccounting" />
+                </PXCheckBox>
+            </AddItem>
+            <PXSegmentMask DataField="SubMaskInventory" OriginalIndex="4" />
+        </Children>
+    </PXFormView>
+</Page>
