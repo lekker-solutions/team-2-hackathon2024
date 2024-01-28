@@ -95,8 +95,9 @@ namespace LS.CarbonAccountingModule.DAC
 
         #region Qty
 
-        [PXDBDecimal(6)]
+        [PXDBQuantity(typeof(uOM), typeof(baseQty), HandleEmptyKey = true)]
         [PXUIField(DisplayName = "Qty")]
+        [PXDefault(TypeCode.Decimal, "0.0")]
         public virtual Decimal? Qty { get; set; }
 
         public abstract class qty : BqlDecimal.Field<qty>
@@ -108,6 +109,7 @@ namespace LS.CarbonAccountingModule.DAC
         #region BaseQty
 
         [PXDBDecimal(6)]
+        [PXDefault(TypeCode.Decimal, "0.0")]
         [PXUIField(DisplayName = "Base Qty")]
         public virtual decimal? BaseQty { get; set; }
 
@@ -120,6 +122,7 @@ namespace LS.CarbonAccountingModule.DAC
         #region Rate
 
         [PXDBDecimal(6)]
+        [PXDefault(TypeCode.Decimal, "0.0")]
         [PXUIField(DisplayName = "Rate")]
         public virtual decimal? Rate { get; set; }
 
@@ -132,6 +135,7 @@ namespace LS.CarbonAccountingModule.DAC
         #region ExtCarbonEquivQty
 
         [PXDBDecimal(6)]
+        [PXDefault(TypeCode.Decimal, "0.0")]
         [PXUIField(DisplayName = "Total t C02-eq")]
         public virtual decimal? ExtCarbonEquivQty { get; set; }
 
