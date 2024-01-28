@@ -138,7 +138,7 @@ namespace LS.CarbonAccountingModule.DAC
 
         [PXDBDecimal(6)]
         [PXDefault(TypeCode.Decimal, "0.0")]
-        [PXUIField(DisplayName = "Total t C02-eq")]
+        [PXUIField(DisplayName = "Total kg C02-eq")]
         public virtual decimal? ExtCarbonEquivQty { get; set; }
 
         public abstract class extCarbonEquivQty : BqlDecimal.Field<extCarbonEquivQty>

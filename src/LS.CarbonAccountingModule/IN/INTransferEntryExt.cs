@@ -1,18 +1,15 @@
 ﻿using LS.CarbonAccountingModule.DAC;
 using PX.Data;
 using PX.Objects.IN;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PX.Objects.SO.SOPickingWorksheet.worksheetType;
 using PX.Data.BQL.Fluent;
 using PX.Common;
 
 namespace LS.CarbonAccountingModule
 {
+    // Acuminator disable once PX1016 ExtensionDoesNotDeclareIsActiveMethod extension should be constantly active
     public class INTransferEntryExt : PXGraphExtension<INTransferEntry>
     {
         #region Views

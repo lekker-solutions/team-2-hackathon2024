@@ -66,6 +66,11 @@
       <HintPath>$(AcumaticaSiteDir)Bin\PX.Objects.dll</HintPath>
       <Private>False</Private>
     </Reference>
+        <Reference Include="PX.Objects.AM">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(AcumaticaSiteDir)Bin\PX.Objects.AM.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Helper\" />
