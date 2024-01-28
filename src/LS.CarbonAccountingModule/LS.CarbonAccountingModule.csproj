@@ -10,6 +10,14 @@
   </PropertyGroup>
   <Import Project="..\acumatica.targets" />
   <ItemGroup>
+    <Compile Remove="Core\Autofac\**" />
+    <Compile Remove="Core\Helper\**" />
+    <EmbeddedResource Remove="Core\Autofac\**" />
+    <EmbeddedResource Remove="Core\Helper\**" />
+    <None Remove="Core\Autofac\**" />
+    <None Remove="Core\Helper\**" />
+  </ItemGroup>
+  <ItemGroup>
     <!-- ACUMATICA REFERENCES -->
     <Reference Include="Autofac">
       <SpecificVersion>False</SpecificVersion>
@@ -58,10 +66,6 @@
       <HintPath>$(AcumaticaSiteDir)Bin\PX.Objects.dll</HintPath>
       <Private>False</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Helper\" />
-    <Folder Include="Core\Autofac\" />
   </ItemGroup>
 
   <!-- Build Settings -->

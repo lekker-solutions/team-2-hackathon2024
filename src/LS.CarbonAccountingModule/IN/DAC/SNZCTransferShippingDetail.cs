@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 namespace LS.CarbonAccountingModule
 {
     public class SNZCTransferShippingDetail : IBqlTable
-    {
-        
+    {   
         [PXDBString(15, IsKey = true)]
         [PXUIField(DisplayName = "Transfer Nbr")]
         public virtual string RefNbr { get; set; }
@@ -22,7 +21,7 @@ namespace LS.CarbonAccountingModule
         public virtual string DocType { get; set; }
         public abstract class docType : BqlString.Field<docType> { }
 
-        [PXDBString()]
+        [PXDBString(1)]
         [PXStringList(
             new string[] { "F", "S", "T", "A", "B" },
             new string[] { "Fleet Truck", "Fleet Semi", "Train", "Air Freight", "Boat Freight" })]
@@ -41,7 +40,7 @@ namespace LS.CarbonAccountingModule
         public abstract class carbonWeight : BqlDecimal.Field<carbonWeight> { }
 
         [PXDBDecimal(2)]
-        [PXUIField(DisplayName = "Total Carbon Cost")]
+        [PXUIField(DisplayName = "Total Carbon Cost", Enabled = false)]
         public virtual decimal? TotalCarbonCost { get; set; }
         public abstract class totalCarbonCost : BqlDecimal.Field<totalCarbonCost> { }
         

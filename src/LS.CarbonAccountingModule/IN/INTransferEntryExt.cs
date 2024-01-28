@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static PX.Objects.SO.SOPickingWorksheet.worksheetType;
 using PX.Data.BQL.Fluent;
+using PX.Common;
 
 namespace LS.CarbonAccountingModule
 {
@@ -119,7 +120,7 @@ namespace LS.CarbonAccountingModule
                 targetDetail.TransportType == "B" ? "Boat Freight" : string.Empty) +
                 " transportation.";
 
-            //CreateCarbonTransaction<INRegister>(targetRecord, targetRecord.TranDate, carbonDetail);
+            LSCATransactionEntry.CreateCarbonTransaction<INRegister>(targetRecord, targetRecord.TranDate, carbonDetail.AsSingleEnumerable());
 
             return list;
         }
